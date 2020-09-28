@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="assign2Gui">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/assign2Gui.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
