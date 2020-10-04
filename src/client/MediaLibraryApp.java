@@ -169,6 +169,13 @@ public class MediaLibraryApp extends MediaLibraryGui implements
       DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode("Search Results");
       model.insertNodeInto(searchResultNode, root, model.getChildCount(root));
 //
+
+      DefaultMutableTreeNode albumNode = new DefaultMutableTreeNode(albumJTF.getText());
+      model.insertNodeInto(albumNode, searchResultNode, model.getChildCount(searchResultNode));
+
+
+      System.out.println("ADDING ALBUM WITH NAME: " + albumJTF.getText() + "SEARCH RESULTS");
+
 //      DefaultMutableTreeNode toAdd = new DefaultMutableTreeNode(album.albumName);
 //      DefaultMutableTreeNode subNode = getSubLabelled(sear);
 
@@ -310,6 +317,7 @@ public class MediaLibraryApp extends MediaLibraryGui implements
                                                      albumJTF.getText().trim(),
                                                      fileNameJTF.getText().trim());
          library.add(aMD);
+
          rebuildTree();
         /*
          JFileChooser chooser = new JFileChooser();
@@ -348,7 +356,8 @@ public class MediaLibraryApp extends MediaLibraryGui implements
 //         album.printSize();
 
 
-         searchResultsTree(album.albumName);
+//         searchResultsTree(album.albumName);
+
 
          rebuildTree();
 
@@ -463,18 +472,32 @@ public class MediaLibraryApp extends MediaLibraryGui implements
    }
 
    public void searchResultsTree(String searchResult) {
-      tree.removeTreeSelectionListener(this);
-      //tree.removeTreeWillExpandListener(this);
+//      tree.removeTreeSelectionListener(this);
+//      tree.removeTreeWillExpandListener(this);
       DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
       DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
-      clearTree(root, model);
+//      clearTree(root, model);
+
+
 
       //Insert Search Result Tree Node
       DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode("Search Results");
       model.insertNodeInto(searchResultNode, root, model.getChildCount(root));
 
-      DefaultMutableTreeNode toAdd = new DefaultMutableTreeNode(searchResult);
+      DefaultMutableTreeNode anAlbumNode = new DefaultMutableTreeNode(albumJTF.getText());
+      model.insertNodeInto(anAlbumNode, searchResultNode, model.getChildCount(searchResultNode));
+
+
+      System.out.println("ADDING ALBUM WITH NAME: " + albumJTF.getText() + "SEARCH RESULTS");
+      for(int r =0; r < tree.getRowCount(); r++){
+         tree.expandRow(r);
+      }
+      tree.addTreeSelectionListener(this);
+
+
+//      DefaultMutableTreeNode toAdd = new DefaultMutableTreeNode(searchResult);
 //      DefaultMutableTreeNode subNode = getSubLabelled(searchResultNode);
+//      model.insertNodeInto(toAdd, searchResultNode, model.getChildCount(root));
    }
 }
 
