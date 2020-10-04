@@ -26,6 +26,10 @@ public class Album extends Object implements Serializable {
         this.tracks = new ArrayList<>();
     }
 
+    public Album(ArrayList<Track> trackArrayList) {
+        this.tracks = trackArrayList;
+    }
+
     public Album parseLastFMJson(String aJsonString) {
         Album album = new Album();
 
@@ -80,9 +84,12 @@ public class Album extends Object implements Serializable {
         }
     }
 
-    public void addAllTracks(ArrayList<Track> trackArrayList) {
-        tracks.addAll(trackArrayList);
-    }
+//    public void addAllTracks(ArrayList<Track> trackArrayList) {
+//        Track tempTrack = new Track();
+//        JSONObject jsonObject = new JSONObject(aJsonString);
+//        for(int i = 0; i < trackArrayList.length(); i++);
+//        tracks.addAll(trackArrayList);
+//    }
 
     public void printSize() {
         System.out.println("Size of tracks arraylist in album: " + this.tracks.size());
@@ -114,6 +121,10 @@ public class Album extends Object implements Serializable {
     }
 
     public void searchGUIUpdate(Album album) {
+
+    }
+
+    public void addEntireAlbum(Album album) {
 
     }
 }

@@ -5,15 +5,12 @@ import org.json.JSONTokener;
 import ser321.assign2.lindquis.MediaDescription;
 import ser321.assign2.lindquis.MediaLibrary;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 
 public class MusicLibrary implements Serializable {
     public ArrayList<Album> albumArrayList;
-    private static final String fileName = "music.json";
+    private static final String fileName = "musics.json";
 
     private Hashtable<String, MediaDescription> aLibrary;
 
@@ -110,9 +107,18 @@ public class MusicLibrary implements Serializable {
 //    }
 
 
-    public void saveLibraryToFile(String file) {
-
-    }
+//    public void saveLibraryToFile(String file, MusicLibrary libraryToSave) throws IOException {
+//        PrintWriter out = new PrintWriter("admin.json");
+//        out.println(libraryToSave.);
+//
+//        File outFile = new File(file);
+//        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(outFile));
+//        os.writeObject();
+//        os.flush();
+//        System.out.println("Used Java serialization of the group to music.ser");
+//        os.close();
+//
+//    }
 
     public String[] getAllTitles() {
         String[] result = null;

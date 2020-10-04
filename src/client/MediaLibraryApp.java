@@ -163,8 +163,19 @@ public class MediaLibraryApp extends MediaLibraryGui implements
       DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
       DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
       clearTree(root, model);
+
+
+      //Insert Search Result Tree Node
+      DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode("Search Results");
+      model.insertNodeInto(searchResultNode, root, model.getChildCount(root));
+//
+//      DefaultMutableTreeNode toAdd = new DefaultMutableTreeNode(album.albumName);
+//      DefaultMutableTreeNode subNode = getSubLabelled(sear);
+
       DefaultMutableTreeNode musicNode = new DefaultMutableTreeNode("Music");
       model.insertNodeInto(musicNode, root, model.getChildCount(root));
+
+
       // put nodes in the tree for all  registered with the library
       String[] musicList = library.getTitles();
       for (int i = 0; i<musicList.length; i++){
@@ -287,7 +298,11 @@ public class MediaLibraryApp extends MediaLibraryGui implements
          rebuildTree();
          System.out.println("Restore "+((resRes)?"successful":"not implemented"));
       }else if(e.getActionCommand().equals("AlbumAdd")) {
-         System.out.println("AlbumAdd not implemented");
+         Album album = new Album();
+
+         musicLibrary.addAlbum(album);
+         rebuildTree();
+//         System.out.println("AlbumAdd not implemented");
       }else if(e.getActionCommand().equals("TrackAdd")) {
          int typeInd = genreJCB.getSelectedIndex();
          MediaDescription aMD = new MediaDescription(trackJTF.getText().trim(),
@@ -332,7 +347,14 @@ public class MediaLibraryApp extends MediaLibraryGui implements
 
 //         album.printSize();
 
+
+         searchResultsTree(album.albumName);
+
+         rebuildTree();
+
          musicLibrary.getAlbumNames();
+
+//         System.out.println("Album as a jsonstring: " + album.toJsonString());
       }else if(e.getActionCommand().equals("Tree Refresh")) {
          rebuildTree();
       }else if(e.getActionCommand().equals("TrackRemove")) {
@@ -439,4 +461,22 @@ public class MediaLibraryApp extends MediaLibraryGui implements
          ex.printStackTrace();
       }
    }
+
+   public void searchResultsTree(String searchResult) {
+      tree.removeTreeSelectionListener(this);
+      //tree.removeTreeWillExpandListener(this);
+      DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+      DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
+      clearTree(root, model);
+
+      //Insert Search Result Tree Node
+      DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode("Search Results");
+      model.insertNodeInto(searchResultNode, root, model.getChildCount(root));
+
+      DefaultMutableTreeNode toAdd = new DefaultMutableTreeNode(searchResult);
+//      DefaultMutableTreeNode subNode = getSubLabelled(searchResultNode);
+   }
 }
+
+
+

@@ -12,6 +12,8 @@ public class Track extends Object implements Serializable {
     public int rankOrder;
     public String duration; //Format: mm:ss
 
+    public static ArrayList<Track> trackArrayList;
+
     public Track() {
         this.setTrackName("");
         this.setArtist("");
@@ -38,7 +40,8 @@ public class Track extends Object implements Serializable {
 
 
         Track track = new Track();
-        ArrayList<Track> trackArrayList = new ArrayList<>();
+//        ArrayList<Track> trackArrayList = new ArrayList<>();
+        trackArrayList = new ArrayList<>();
 
         //see what jsonObject prints
         JSONObject jsonObject = new JSONObject(aJsonString);
@@ -80,8 +83,19 @@ public class Track extends Object implements Serializable {
 //            System.out.println("Track name: " + trackArrayList.get(i).trackName);
 //        }
 
+        printTrackArrayList();
+
         return trackArrayList;
     }
+
+    public static void printTrackArrayList() {
+        for(int i = 0; i < trackArrayList.size(); i++) {
+            System.out.println("Track #:" + i + " " + trackArrayList.get(i).trackName);
+            System.out.println("Track #:" + i + " jsonString: " + trackArrayList.get(i).toJsonString());
+        }
+    }
+
+
 
 
     public JSONObject toJson() {
