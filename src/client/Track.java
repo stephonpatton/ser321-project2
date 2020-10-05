@@ -10,6 +10,7 @@ public class Track extends Object implements Serializable {
     public String trackName;
     public String artist;
     public int rankOrder;
+    public String albumName;
     public String duration; //Format: mm:ss
 
     public static ArrayList<Track> trackArrayList;
@@ -59,6 +60,9 @@ public class Track extends Object implements Serializable {
             tempTrack.trackName = allTracks.getJSONObject(i).getString("name");
             System.out.println("TRACK NAME: " + tempTrack.trackName);
 
+            tempTrack.albumName = album.getString("name");
+
+
             tempTrack.artist = album.getString("artist");
             System.out.println("Artist: " + tempTrack.artist);
 
@@ -103,7 +107,7 @@ public class Track extends Object implements Serializable {
         try {
             obj.put("title", this.trackName);
             obj.put("author", this.artist);
-            obj.put("album", this.artist);
+            obj.put("album", this.albumName);
             obj.put("fileName", this.duration);
         } catch (Exception ex) {
             System.out.println("Exception in toJson: " + ex.getMessage());

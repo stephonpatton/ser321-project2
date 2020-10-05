@@ -69,6 +69,7 @@ public class MediaLibraryApp extends MediaLibraryGui implements
    private boolean stopPlaying;         //shared, but not synchronized with playing thread.
    private MediaLibrary library;
    private String lastFMKey;
+   public DefaultTreeModel model = null;
    MusicLibrary musicLibrary = new MusicLibrary();
 
 
@@ -160,28 +161,25 @@ public class MediaLibraryApp extends MediaLibraryGui implements
    public void rebuildTree(){
       tree.removeTreeSelectionListener(this);
       //tree.removeTreeWillExpandListener(this);
-      DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+//      DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+      model = (DefaultTreeModel)tree.getModel();
       DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
       clearTree(root, model);
-
 
       //Insert Search Result Tree Node
       DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode("Search Results");
       model.insertNodeInto(searchResultNode, root, model.getChildCount(root));
-//
 
       DefaultMutableTreeNode albumNode = new DefaultMutableTreeNode(albumJTF.getText());
       model.insertNodeInto(albumNode, searchResultNode, model.getChildCount(searchResultNode));
-
-
-      System.out.println("ADDING ALBUM WITH NAME: " + albumJTF.getText() + "SEARCH RESULTS");
+//
+//      System.out.println("ADDING ALBUM WITH NAME: " + albumJTF.getText() + "SEARCH RESULTS");
 
 //      DefaultMutableTreeNode toAdd = new DefaultMutableTreeNode(album.albumName);
 //      DefaultMutableTreeNode subNode = getSubLabelled(sear);
 
       DefaultMutableTreeNode musicNode = new DefaultMutableTreeNode("Music");
       model.insertNodeInto(musicNode, root, model.getChildCount(root));
-
 
       // put nodes in the tree for all  registered with the library
       String[] musicList = library.getTitles();
@@ -357,13 +355,12 @@ public class MediaLibraryApp extends MediaLibraryGui implements
 
 
 //         searchResultsTree(album.albumName);
-
+//         searchResultsTree();
 
          rebuildTree();
-
          musicLibrary.getAlbumNames();
 
-//         System.out.println("Album as a jsonstring: " + album.toJsonString());
+         System.out.println("Album as a jsonstring: " + album.tracks.get(2).toJsonString());
       }else if(e.getActionCommand().equals("Tree Refresh")) {
          rebuildTree();
       }else if(e.getActionCommand().equals("TrackRemove")) {
@@ -471,34 +468,39 @@ public class MediaLibraryApp extends MediaLibraryGui implements
       }
    }
 
-   public void searchResultsTree(String searchResult) {
-//      tree.removeTreeSelectionListener(this);
-//      tree.removeTreeWillExpandListener(this);
-      DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+   public void searchResultsTree() {
       DefaultMutableTreeNode root = (DefaultMutableTreeNode)model.getRoot();
 //      clearTree(root, model);
 
-
-
       //Insert Search Result Tree Node
       DefaultMutableTreeNode searchResultNode = new DefaultMutableTreeNode("Search Results");
-      model.insertNodeInto(searchResultNode, root, model.getChildCount(root));
+      root.add(searchResultNode);
+//      model.insertNodeInto(searchResultNode, root, model.getChildCount(root));
 
       DefaultMutableTreeNode anAlbumNode = new DefaultMutableTreeNode(albumJTF.getText());
-      model.insertNodeInto(anAlbumNode, searchResultNode, model.getChildCount(searchResultNode));
+      searchResultNode.add(anAlbumNode);
+//      model.insertNodeInto(anAlbumNode, searchResultNode, model.getChildCount(searchResultNode));
+
+      DefaultMutableTreeNode aSubNode = new DefaultMutableTreeNode("aSubCat");
+      anAlbumNode.add(aSubNode);
+//      model.insertNodeInto(aSubNode, anAlbumNode, model.getChildCount(anAlbumNode));
 
 
       System.out.println("ADDING ALBUM WITH NAME: " + albumJTF.getText() + "SEARCH RESULTS");
-      for(int r =0; r < tree.getRowCount(); r++){
-         tree.expandRow(r);
-      }
-      tree.addTreeSelectionListener(this);
+//      rebuildTree();
+
+//      for(int r =0; r < tree.getRowCount(); r++){
+//         tree.expandRow(r);
+//      }
+//      tree.addTreeSelectionListener(this);
 
 
 //      DefaultMutableTreeNode toAdd = new DefaultMutableTreeNode(searchResult);
 //      DefaultMutableTreeNode subNode = getSubLabelled(searchResultNode);
 //      model.insertNodeInto(toAdd, searchResultNode, model.getChildCount(root));
    }
+
+
 }
 
 
