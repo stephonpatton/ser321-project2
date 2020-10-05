@@ -22,6 +22,22 @@ public class Track extends Object implements Serializable {
         this.setDuration("00:00:00");
     }
 
+    public Track(String aJsonString) {
+        this(new JSONObject(aJsonString));
+    }
+
+    public Track(JSONObject jsonObject) {
+        try {
+            trackName = jsonObject.getString("trackName");
+            artist = jsonObject.getString("artist");
+            albumName = jsonObject.getString("album");
+//            filename = jsonObject.getString("filename");
+            System.out.println("Constructed " + this.toJsonString()+ " from json");
+        }catch(Exception ex) {
+            System.out.println("Exception in Track(JSONObject): " + ex.getMessage());
+        }
+    }
+
     public Track(String trackName, String artist, int rankOrder, String duration) {
         setTrackName(trackName);
         setArtist(artist);

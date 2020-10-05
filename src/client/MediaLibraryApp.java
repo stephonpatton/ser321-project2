@@ -304,8 +304,16 @@ public class MediaLibraryApp extends MediaLibraryGui implements
          System.out.println("Restore "+((resRes)?"successful":"not implemented"));
       }else if(e.getActionCommand().equals("AlbumAdd")) {
          Album album = new Album();
+         Track track = new Track(trackJTF.getText(), artistSearchJTF.getText(), 1, timeJTF.getText());
+         System.out.println("Track as json string: " + track.toJson());
 
-         musicLibrary.addAlbum(album);
+//         musicLibrary.addAlbum(album);
+         album.addTrack(track);
+         try {
+            musicLibrary.saveLibraryToFile("admin.json", album.tracks.get(0));
+         } catch (IOException ioException) {
+            ioException.printStackTrace();
+         }
          rebuildTree();
 //         System.out.println("AlbumAdd not implemented");
       }else if(e.getActionCommand().equals("TrackAdd")) {
@@ -315,6 +323,7 @@ public class MediaLibraryApp extends MediaLibraryGui implements
                                                      albumJTF.getText().trim(),
                                                      fileNameJTF.getText().trim());
          library.add(aMD);
+
 
          rebuildTree();
         /*

@@ -109,7 +109,7 @@ public class MusicLibrary implements Serializable {
 
 //    public void saveLibraryToFile(String file, MusicLibrary libraryToSave) throws IOException {
 //        PrintWriter out = new PrintWriter("admin.json");
-//        out.println(libraryToSave.);
+//        out.println(libraryToSave);
 //
 //        File outFile = new File(file);
 //        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(outFile));
@@ -119,6 +119,20 @@ public class MusicLibrary implements Serializable {
 //        os.close();
 //
 //    }
+
+    public void saveLibraryToFile(String file, Track track) throws IOException {
+        PrintWriter out = new PrintWriter("admin.json");
+        out.println(track.toJson());
+
+        File outFile = new File(file);
+        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(outFile));
+        os.writeObject(track);
+        os.flush();
+        System.out.println("Used Java serialization of the group to music.ser");
+        os.close();
+
+    }
+
 
     public String[] getAllTitles() {
         String[] result = null;
