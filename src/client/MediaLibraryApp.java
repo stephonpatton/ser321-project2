@@ -365,6 +365,10 @@ public class MediaLibraryApp extends MediaLibraryGui implements
 
 //         searchResultsTree(album.albumName);
 //         searchResultsTree();
+//
+//         Track track = new Track();
+//         ArrayList<Track> tracks = new ArrayList<>();
+//         tracks = track.parseLastFMJson(jsonString);
 
          rebuildTree();
          musicLibrary.getAlbumNames();

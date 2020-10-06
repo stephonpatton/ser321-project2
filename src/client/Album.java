@@ -57,6 +57,10 @@ public class Album extends Object implements Serializable {
         System.out.println("Artist: " + album.artist);
 
         for(int i = 0; i < tracks.size(); i++) {
+            //TODO: Loop through AL and print out tracks with FROM ALBUM PARSE IN IT
+        }
+
+        for(int i = 0; i < tracks.size(); i++) {
             album.runTime += Integer.parseInt(tracks.get(i).duration);
         }
 
@@ -126,5 +130,9 @@ public class Album extends Object implements Serializable {
 
     public void addEntireAlbum(Album album) {
 
+    }
+
+    public void createAlbumFromTrackAL(ArrayList<Track> trackArrayList) {
+        this.tracks = trackArrayList;
     }
 }
