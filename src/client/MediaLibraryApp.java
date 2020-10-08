@@ -3,6 +3,8 @@ package ser321.assign2.lindquis;
 import client.Album;
 import client.MusicLibrary;
 import client.Track;
+import org.json.JSONObject;
+import ser321.assign2.lindquis.MediaDescription;
 
 import javax.swing.*;
 import java.io.*;
@@ -309,11 +311,11 @@ public class MediaLibraryApp extends MediaLibraryGui implements
 
 //         musicLibrary.addAlbum(album);
          album.addTrack(track);
-         try {
-            musicLibrary.saveLibraryToFile("admin.json", album.tracks.get(0));
-         } catch (IOException ioException) {
-            ioException.printStackTrace();
-         }
+//         try {
+//            musicLibrary.saveLibraryToFile("admin.json", album.t);
+//         } catch (IOException ioException) {
+//            ioException.printStackTrace();
+//         }
          rebuildTree();
 //         System.out.println("AlbumAdd not implemented");
       }else if(e.getActionCommand().equals("TrackAdd")) {
@@ -351,6 +353,8 @@ public class MediaLibraryApp extends MediaLibraryGui implements
 //         album.addAllTracks(Track.parseLastFMJson(jsonString));
          album = album.parseLastFMJson(jsonString);
          musicLibrary.addAlbum(album);
+         JSONObject albumObj = album.toJson();
+
          //TODO: Delete later
          this.trackJTF.setText(album.tracks.get(1).getTrackName());
          this.albumJTF.setText(album.albumName);
@@ -371,9 +375,14 @@ public class MediaLibraryApp extends MediaLibraryGui implements
 //         tracks = track.parseLastFMJson(jsonString);
 
          rebuildTree();
+         try {
+            musicLibrary.saveLibraryToFile("musics.json", musicLibrary.albumArrayList);
+         } catch (IOException ioException) {
+            ioException.printStackTrace();
+         }
          musicLibrary.getAlbumNames();
 
-         System.out.println("Album as a jsonstring: " + album.tracks.get(2).toJsonString());
+//         System.out.println("Album as a jsonstring: " + album.tracks.get(2).toJsonString());
       }else if(e.getActionCommand().equals("Tree Refresh")) {
          rebuildTree();
       }else if(e.getActionCommand().equals("TrackRemove")) {

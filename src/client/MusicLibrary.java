@@ -79,6 +79,10 @@ public class MusicLibrary implements Serializable {
         }
     }
 
+    public ArrayList<Album> getAllAlbums() {
+        return albumArrayList;
+    }
+
     public ArrayList<String> getAlbumNames() {
         ArrayList<String> albumNames = new ArrayList<>();
         for(int i = 0; i < albumArrayList.size(); i++) {
@@ -120,16 +124,26 @@ public class MusicLibrary implements Serializable {
 //
 //    }
 
-    public void saveLibraryToFile(String file, Track track) throws IOException {
-        PrintWriter out = new PrintWriter("admin.json");
-        out.println(track.toJson());
+    public void saveLibraryToFile(String file, ArrayList<Album> albums) throws IOException {
+//        albumArrayList.addAll(albums);
+//        PrintWriter out = new PrintWriter(file);
+//        out.println(albums.get(0).tracks.get(2).toJsonString());
+//
+//        File outFile = new File(file);
+//        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(outFile));
+//        os.writeObject(albums.get(0).tracks.get(2).toJsonString());
+//        os.flush();
+//        System.out.println("Used Java serialization of the group to music.ser");
+//        os.close();
 
-        File outFile = new File(file);
-        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(outFile));
-        os.writeObject(track);
-        os.flush();
-        System.out.println("Used Java serialization of the group to music.ser");
-        os.close();
+
+        for(int i=0; i < albums.size();) {
+            for(int j = 0; j < albums.get(i).tracks.size(); j++) {
+                System.out.println("SIZE OF ALBUM TRACKS IN ML: " + albumArrayList.get(i).tracks.size());
+                System.out.println("Track as json string: " + albumArrayList.get(i).tracks.get(j).toJsonString());
+            }
+            i++;
+        }
 
     }
 
@@ -140,10 +154,10 @@ public class MusicLibrary implements Serializable {
         try {
             Set<String> vec = aLibrary.keySet();
             result = vec.toArray(new String[]{});
+            System.out.println("ALL TITLES: " + Arrays.toString(result));
         } catch(Exception ex) {
             System.out.println("EXCEPTION in GETALLTITLES " + ex.getMessage());
         }
-
         return result;
     }
 

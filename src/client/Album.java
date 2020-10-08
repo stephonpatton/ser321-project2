@@ -56,13 +56,17 @@ public class Album extends Object implements Serializable {
         System.out.println("Image: " + album.imageURL);
         System.out.println("Artist: " + album.artist);
 
-        for(int i = 0; i < tracks.size(); i++) {
+        for(int i = 0; i < album.tracks.size(); i++) {
             //TODO: Loop through AL and print out tracks with FROM ALBUM PARSE IN IT
+            System.out.println("FROM ALBUMPARSE LASTFM: \n\n\n\n");
+            System.out.println("Track number " + i + ": " + album.tracks.get(i).toJsonString());
         }
 
         for(int i = 0; i < tracks.size(); i++) {
             album.runTime += Integer.parseInt(tracks.get(i).duration);
         }
+
+        System.out.println("TOTAL AMOUNT IN ALBUMS.TRACKS: " + album.tracks.size());
 
         return album;
     }
@@ -123,6 +127,26 @@ public class Album extends Object implements Serializable {
         }
         return ret;
     }
+
+    public JSONArray tracksToJson() {
+        JSONArray allTracks = new JSONArray();
+
+        try {
+
+            for(int i = 0; i < tracks.size(); i++) {
+                JSONObject innerObj = new JSONObject();
+                innerObj.put("title", this.tracks.get(i).trackName);
+                innerObj.put("artist", this.tracks.get(i).artist);
+                innerObj.put("album", this.albumName);
+                allTracks.put(innerObj);
+            }
+        }catch(Exception ex) {
+            System.err.println("Exception in tracksToJson: " + ex.getMessage());
+        }
+        return allTracks;
+    }
+
+
 
     public void searchGUIUpdate(Album album) {
 

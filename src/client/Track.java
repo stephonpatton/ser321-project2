@@ -124,7 +124,7 @@ public class Track extends Object implements Serializable {
             obj.put("title", this.trackName);
             obj.put("author", this.artist);
             obj.put("album", this.albumName);
-            obj.put("fileName", this.duration);
+//            obj.put("fileName", this.duration);
         } catch (Exception ex) {
             System.out.println("Exception in toJson: " + ex.getMessage());
         }
