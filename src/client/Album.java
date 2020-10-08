@@ -110,7 +110,7 @@ public class Album extends Object implements Serializable {
                 obj.put("title", this.tracks.get(i).trackName);
                 obj.put("artist", this.tracks.get(i).artist);
                 obj.put("album", this.albumName);
-//                obj.put("fileName", this.);
+//                obj.put("fileName", this.runTime);
             }
         } catch (Exception ex) {
             System.err.println("Exception in toJson: " + ex.getMessage());
@@ -130,10 +130,10 @@ public class Album extends Object implements Serializable {
 
     public JSONArray tracksToJson() {
         JSONArray allTracks = new JSONArray();
-
         try {
 
             for(int i = 0; i < tracks.size(); i++) {
+                allTracks.put(tracks.get(i).trackName);
                 JSONObject innerObj = new JSONObject();
                 innerObj.put("title", this.tracks.get(i).trackName);
                 innerObj.put("artist", this.tracks.get(i).artist);
